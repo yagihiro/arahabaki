@@ -78,7 +78,6 @@ bool Router::run() {
     try {
       f(additional_args);
     } catch (InvalidArgument &e) {
-      // failure() がコールされて _help_fn() がコールされる
       return false;
     }
     return true;
