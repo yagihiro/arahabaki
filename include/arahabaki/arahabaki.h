@@ -23,38 +23,8 @@ SOFTWARE.
 */
 #ifndef __arahabaki_arahabaki__
 #define __arahabaki_arahabaki__
-#include <functional>
-#include <memory>
-#include <vector>
 #include "arguments.h"
-
-namespace arahabaki {
-
-typedef struct {
-  std::vector<std::string> regexes;
-  CommandRouter::CallbackFunction fn;
-  std::vector<std::string> sub_matches;
-
-  Route(const std::vector<std::string> &r,
-        const CommandRouter::CallbackFunction &f)
-      : regexes(r), fn(f) {}
-} Route;
-
-class Router {
- public:
-  using CallbackFunction = std::function<void(const Arguments &)>;
-
-  static std::shared_ptr<Router> create(int argc, const char *argv[]);
-
-  bool run();
-
-  void add_route(Route &route);
-
- private:
-  void set(int argc, const char *argv[]);
-
-  std::vector<std::string> _arguments;
-  std::vector<Route> _routes;
-};
-}
+#include "callback.h"
+#include "route.h"
+#include "router.h"
 #endif
