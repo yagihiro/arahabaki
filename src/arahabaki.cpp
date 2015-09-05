@@ -22,15 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #include <algorithm>
-#include <format.h>
+#include <cassert>
 #include <regex>
 #include <arahabaki/arahabaki.h>
 
 namespace arahabaki {
 
-std::shared_ptr<CommandRouter> Router::create(int argc,
-                                              const char *argv[]) {
-  auto router = std::make_shared<CommandRouter>();
+std::shared_ptr<Router> Router::create(int argc, const char *argv[]) {
+  auto router = std::make_shared<Router>();
   router->set(argc, argv);
 
   return router;
@@ -86,11 +85,9 @@ bool Router::run() {
   return false;
 }
 
-void Router::add_route(Route &route) {
-  _routes.emplace_back(route);
-}
+void Router::add_route(Route &route) { _routes.emplace_back(route); }
 
-void CommandRouter::set(int argc, const char *argv[]) {
+void Router::set(int argc, const char *argv[]) {
   for (int i = 1; i < argc; i++) {
     _arguments.emplace_back(argv[i]);
   }
